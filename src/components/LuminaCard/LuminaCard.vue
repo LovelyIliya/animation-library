@@ -8,7 +8,9 @@
       borderRadius: props.radius + 'px'
     }"
   >
-    <div class="dazzle-light" ref="dazzleLight"></div>
+    <div class="dazzle-light" ref="dazzleLight" :class="'mode' + props.mode">
+      <slot></slot>
+    </div>
   </div>
 </template>
 
@@ -34,6 +36,10 @@ const props = defineProps({
   borderWidth: {
     type: Number,
     default: 3
+  },
+  mode: {
+    type: String,
+    default: '1'
   }
 })
 const { width, height, radius, borderWidth } = toRefs(props)
@@ -55,7 +61,9 @@ const path =
   `Q1,${borderWidth.value},14,${borderWidth.value} ` +
   `L${width.value / 2},${borderWidth.value} ` +
   `L${width.value / 2},0 ` +
-  `L${radius.value + 1},0Q0,0,0,${radius.value + 1}L0,${height.value - borderWidth.value - radius.value} ` +
+  `L${radius.value + 1},0 ` +
+  `Q0,0,0,${radius.value + 1} ` +
+  `L0,${height.value - borderWidth.value - radius.value} ` +
   `Q0,${height.value},${radius.value + 1},${height.value} ` +
   `L${width.value - borderWidth.value},${height.value} Z`
 
@@ -84,17 +92,41 @@ onMounted(() => {
   align-items: center;
   justify-content: center;
 
-  &::after {
+  &.mode1::after {
+    content: '';
+    display: block;
+    width: 104%;
+    height: 104%;
+    background-image: linear-gradient(var(--rotate), #00ffff, #ff0000 40%, #99ff33);
+    animation: animation1 4s infinite linear;
+  }
+  &.mode2::after {
     content: '';
     display: block;
     width: 60%;
     height: 200%;
-    background: linear-gradient(90deg, transparent, red, transparent);
-    animation: animation 5000ms infinite linear;
+    background-image: linear-gradient(90deg, transparent, #99ff33, transparent);
+    animation: animation2 2s infinite linear;
   }
 }
 
-@keyframes animation {
+@property --rotate {
+  syntax: '<angle>';
+  initial-value: 132deg;
+  inherits: false;
+}
+
+@keyframes animation1 {
+  0% {
+    --rotate: 0deg;
+  }
+
+  100% {
+    --rotate: 360deg;
+  }
+}
+
+@keyframes animation2 {
   0% {
     transform: rotateZ(0deg);
   }
