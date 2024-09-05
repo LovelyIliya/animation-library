@@ -16,3 +16,10 @@ body {
   min-height: 100vh;
   background-color: #000;
 }
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}

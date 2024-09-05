@@ -1,6 +1,6 @@
 # useless-ui
 
-This template should help get you started developing with Vue 3 in Vite.
+存放我编写的一些动效，工作中应该用不到，所以我命名为没啥用的ui
 
 ## Recommended IDE Setup
 

@@ -5,6 +5,7 @@
       width: props.width + 'px',
       height: props.height + 'px',
       backgroundColor: props.backgroundColor,
+      backdropFilter: 'blur(' + props.filterBlur + 'px)',
       borderRadius: props.radius + 'px'
     }"
   >
@@ -17,26 +18,37 @@
 <script setup lang="ts">
 import { ref, toRefs, onMounted } from 'vue'
 const props = defineProps({
+  // 宽度
   width: {
     type: Number,
     default: 300
   },
+  // 高度
   height: {
     type: Number,
     default: 200
   },
+  // 背景色
   backgroundColor: {
     type: String,
-    default: 'rgba(255, 255, 255, 0.6)'
+    default: 'rgba(255, 255, 255, 0.3)'
   },
+  // 圆角大小
   radius: {
     type: Number,
     default: 8
   },
+  // 流光边框宽度
   borderWidth: {
     type: Number,
     default: 3
   },
+  // 背景模糊度
+  filterBlur: {
+    type: Number,
+    default: 2
+  },
+  // 流光边框渲染模式
   mode: {
     type: String,
     default: '1'
@@ -44,6 +56,7 @@ const props = defineProps({
 })
 const { width, height, radius, borderWidth } = toRefs(props)
 const dazzleLight = ref()
+// 核心算法，剪切边框路径
 const path =
   `M${width.value - borderWidth.value - radius.value},${height.value} ` +
   `Q${width.value},${height.value},${width.value},${height.value - borderWidth.value - radius.value} ` +
@@ -76,7 +89,6 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .lumina-card {
-  backdrop-filter: blur(2px);
   position: relative;
 }
 
