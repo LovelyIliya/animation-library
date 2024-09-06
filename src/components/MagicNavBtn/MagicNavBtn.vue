@@ -26,7 +26,7 @@ function play() {
   container.value.classList.add('playing')
   container.value.classList.remove('normalcy')
   setTimeout(() => {
-    container.value.style.width = 100 + props.text?.length * 10 + 'px'
+    container.value.style.width = 100 + props.text?.length * 15 + 'px'
   }, 700)
   setTimeout(() => {
     container.value.classList.add('normalcy')
@@ -65,15 +65,14 @@ defineExpose({ play, hide })
   backdrop-filter: blur(4px);
   background-color: rgba($color: #fff, $alpha: 0.7);
   scale: 0;
+  border-radius: 30px;
   box-sizing: content-box;
-  transform-origin: bottom;
   display: flex;
   align-items: center;
   transition: width 0.3s ease-in-out;
   // 常态样式
   &.normalcy {
     height: 55px;
-    border-radius: 30px;
     justify-content: space-between;
     scale: 1;
     .text {
@@ -88,8 +87,8 @@ defineExpose({ play, hide })
   &.playing {
     height: 55px;
     width: 55px;
-    border-radius: 50%;
     border-width: 15px;
+    border-radius: 50%;
     justify-content: center;
     animation:
       anim-show 0.5s ease-in-out forwards,
@@ -101,8 +100,8 @@ defineExpose({ play, hide })
   }
   &.hideing {
     height: 55px;
-    border-radius: 30px;
     scale: 1;
+    padding-right: 0;
     animation:
       anim-adjust 0.2s ease-in-out forwards reverse 0.3s,
       anim-show 0.2s ease-in-out forwards 0.65s reverse;
@@ -149,16 +148,18 @@ defineExpose({ play, hide })
 
 @keyframes anim-border {
   from {
+    border-radius: 50%;
     border-width: 15px;
   }
   to {
+    border-radius: 30px;
     border-width: 0;
   }
 }
 
 @keyframes anim-adjust {
   0% {
-    border-radius: 50%;
+    border-radius: 30px;
     justify-content: center;
     padding-right: 0;
   }
@@ -167,7 +168,6 @@ defineExpose({ play, hide })
   }
   100% {
     padding-right: 10px;
-    border-radius: 30px;
     justify-content: space-between;
   }
 }
