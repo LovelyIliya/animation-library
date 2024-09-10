@@ -10,7 +10,7 @@
     </div>
     <div class="item" style="padding-top: 30px">
       <div class="mnv-box">
-        <MagicNavBtn ref="MagicNavBtnRef" text="导航按钮"></MagicNavBtn>
+        <MagicNavBtn ref="MagicNavBtnRef" text="仿苹果的导航按钮"></MagicNavBtn>
       </div>
       <div class="btn-box">
         <button @click="playMagicNavBtn" class="btn">播放</button>
