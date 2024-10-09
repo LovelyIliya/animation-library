@@ -1,5 +1,15 @@
 <template>
-  <button class="magic-nav-btn" ref="container" @click="handleClick">
+  <button
+    class="magic-nav-btn"
+    ref="container"
+    @click="handleClick"
+    :class="{
+      playing: playing && !showed,
+      normalcy: showed && !playing,
+      hideing: playing && showed
+    }"
+    :style="{ width: boxWidth }"
+  >
     <span class="text">{{ props.text }}</span>
     <div class="icon-btn">
       <span class="iconfont icon-jia"></span>
@@ -20,17 +30,14 @@ const props = defineProps({
 const container = ref()
 const playing = ref(false)
 const showed = ref(false)
+const boxWidth = ref('55px')
 function play() {
   if (playing.value || showed.value) return
   playing.value = true
-  container.value.classList.add('playing')
-  container.value.classList.remove('normalcy')
   setTimeout(() => {
-    container.value.style.width = 100 + props.text?.length * 15 + 'px'
+    boxWidth.value = 100 + props.text?.length * 15 + 'px'
   }, 700)
   setTimeout(() => {
-    container.value.classList.add('normalcy')
-    container.value.classList.remove('playing')
     playing.value = false
     showed.value = true
   }, 1000)
@@ -39,13 +46,10 @@ function play() {
 function hide() {
   if (playing.value || !showed.value) return
   playing.value = true
-  container.value.classList.add('hideing')
-  container.value.classList.remove('normalcy')
   setTimeout(() => {
-    container.value.style.width = '55px'
+    boxWidth.value = '55px'
   }, 300)
   setTimeout(() => {
-    container.value.classList.remove('hideing')
     playing.value = false
     showed.value = false
   }, 1000)

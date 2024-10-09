@@ -9,14 +9,14 @@
       borderRadius: props.radius + 'px'
     }"
   >
-    <div class="dazzle-light" ref="dazzleLight" :class="'mode' + props.mode">
+    <div class="dazzle-light" :class="'mode' + props.mode" :style="{ clipPath: `path('${path}')` }">
       <slot></slot>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, toRefs, onMounted } from 'vue'
+import { ref, toRefs } from 'vue'
 const props = defineProps({
   // 宽度
   width: {
@@ -55,36 +55,30 @@ const props = defineProps({
   }
 })
 const { width, height, radius, borderWidth } = toRefs(props)
-const dazzleLight = ref()
 // 核心算法，剪切边框路径
-const path =
+const path = ref(
   `M${width.value - borderWidth.value - radius.value},${height.value} ` +
-  `Q${width.value},${height.value},${width.value},${height.value - borderWidth.value - radius.value} ` +
-  `L${width.value},${radius.value + 1} ` +
-  `Q${width.value},0,${width.value - borderWidth.value - radius.value},0 ` +
-  `L${width.value / 2},0 ` +
-  `L${width.value / 2},${borderWidth.value} ` +
-  `L${width.value - 2 - radius.value},${borderWidth.value} ` +
-  `Q${width.value - borderWidth.value},${borderWidth.value},${width.value - borderWidth.value},14 ` +
-  `L${width.value - borderWidth.value},${height.value - 2 - radius.value} ` +
-  `Q${width.value - borderWidth.value},${height.value - borderWidth.value},${width.value - 2 - radius.value},${height.value - borderWidth.value} ` +
-  `L14,${height.value - borderWidth.value} ` +
-  `Q1,${height.value - borderWidth.value},${borderWidth.value},${height.value - 2 - radius.value} ` +
-  `L${borderWidth.value},14 ` +
-  `Q1,${borderWidth.value},14,${borderWidth.value} ` +
-  `L${width.value / 2},${borderWidth.value} ` +
-  `L${width.value / 2},0 ` +
-  `L${radius.value + 1},0 ` +
-  `Q0,0,0,${radius.value + 1} ` +
-  `L0,${height.value - borderWidth.value - radius.value} ` +
-  `Q0,${height.value},${radius.value + 1},${height.value} ` +
-  `L${width.value - borderWidth.value},${height.value} Z`
-
-onMounted(() => {
-  console.log(path)
-
-  dazzleLight.value.style.clipPath = `path("${path}")`
-})
+    `Q${width.value},${height.value},${width.value},${height.value - borderWidth.value - radius.value} ` +
+    `L${width.value},${radius.value + 1} ` +
+    `Q${width.value},0,${width.value - borderWidth.value - radius.value},0 ` +
+    `L${width.value / 2},0 ` +
+    `L${width.value / 2},${borderWidth.value} ` +
+    `L${width.value - 2 - radius.value},${borderWidth.value} ` +
+    `Q${width.value - borderWidth.value},${borderWidth.value},${width.value - borderWidth.value},14 ` +
+    `L${width.value - borderWidth.value},${height.value - 2 - radius.value} ` +
+    `Q${width.value - borderWidth.value},${height.value - borderWidth.value},${width.value - 2 - radius.value},${height.value - borderWidth.value} ` +
+    `L14,${height.value - borderWidth.value} ` +
+    `Q1,${height.value - borderWidth.value},${borderWidth.value},${height.value - 2 - radius.value} ` +
+    `L${borderWidth.value},14 ` +
+    `Q1,${borderWidth.value},14,${borderWidth.value} ` +
+    `L${width.value / 2},${borderWidth.value} ` +
+    `L${width.value / 2},0 ` +
+    `L${radius.value + 1},0 ` +
+    `Q0,0,0,${radius.value + 1} ` +
+    `L0,${height.value - borderWidth.value - radius.value} ` +
+    `Q0,${height.value},${radius.value + 1},${height.value} ` +
+    `L${width.value - borderWidth.value},${height.value} Z`
+)
 </script>
 
 <style lang="scss" scoped>
