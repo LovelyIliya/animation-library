@@ -1,6 +1,6 @@
 # useless-ui
 
-存放我编写的一些动效，工作中应该用不到，所以我命名为没啥用的ui
+存放一些动效
 
 ## Recommended IDE Setup
 
